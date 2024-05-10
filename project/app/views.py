@@ -76,3 +76,11 @@ def user_login(request):
             return redirect("app:login")
 
     return render(request,"app/login.html")
+
+
+
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, "Logout successful.")
+    return redirect("app:login")
