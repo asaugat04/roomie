@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
+from django.contrib import messages
+from . models import Profile
 
 @login_required
 def home(request):
@@ -13,12 +15,47 @@ def home(request):
 def signup(request):
 
     if request.method == "POST":
-            form_data = request.POST
-            
+        form_data = request.POST
+
+        username = form_data["user_name"]
+        try:
+            user = User.objects.get(username=username)
+            messages.error(request, "Username already exists. Please try with another username.")
+            print("user found")
+            return redirect("app:signup")
+        except:
+            password = form_data["password"]
+            first_name = form_data["first_name"]
+            last_name = form_data["last_name"]
+
+            user = User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name)
 
 
+            current_address = form_data["current_address"]
+            permanent_address = form_data["permanent_address"]
+            contact_no = form_data["contact_no"]
 
-        return render(request,"app/signup.html")
+            gender = form_data["gender"]
+            food_pref = form_data["food_pref"]
+            user_type_1 = form_data["user_type_1"]
+            user_type_2 = form_data["user_type_2"]
+            interests = form_data["interests"]
+
+            Profile.objects.create(
+                user=user,
+                temp_address=current_address,
+                perm_address=permanent_address,
+                phone_no=contact_no,
+                gender=gender,
+                food_preference=food_pref,
+                user_type=user_type_1,
+                user_type_2=user_type_2,
+                interests=interests
+                
+            )
+            messages.success(request, "Account created successfully. Please login.")
+            return redirect("app:login")
+
 
     return render(request,"app/signup.html")
 
