@@ -4,11 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from . models import Profile
+from django.contrib.auth import authenticate, login, logout
 
 @login_required
 def home(request):
-    return HttpResponse("home")
-    # return render(request,"app/signup.html")
+    return render(request,"app/home.html")
 
 
 
@@ -21,7 +21,6 @@ def signup(request):
         try:
             user = User.objects.get(username=username)
             messages.error(request, "Username already exists. Please try with another username.")
-            print("user found")
             return redirect("app:signup")
         except:
             password = form_data["password"]
@@ -60,5 +59,20 @@ def signup(request):
     return render(request,"app/signup.html")
 
 
-def login(request):
+
+def user_login(request):
+    if request.method == "POST":
+        form_data = request.POST
+        username = form_data["user_name"]
+        password = form_data["password"]
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Login successful.")
+            return redirect("app:home")
+        else:
+            messages.error(request, "Invalid username or password. Please try again.")
+            return redirect("app:login")
+
     return render(request,"app/login.html")

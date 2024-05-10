@@ -1,0 +1,19 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}
+  Roomie | Home
+{% endblock %}
+{% block css_links %}
+  {% comment %} <link rel="stylesheet" href="{% static 'app/signup.css' %}" /> {% endcomment %}
+{% endblock %}
+{% block content %}
+  <div class="container" id="container">
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+    <!-- Signup form -->
+  </div>
+{% endblock %}
