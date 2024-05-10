@@ -1,70 +1,92 @@
 {% extends 'app/base.html' %}
-
+{% load static %}
+{% block css_links %}
+  <link rel="stylesheet" href="{% static 'app/signup.css' %}" />
+{% endblock %}
 {% block content %}
   <div class="container" id="container">
     <!-- Signup form -->
-    <div class="form-container sign-up-container">
-      <form action="" method="post">
-        {% csrf_token %}
-        <h1>Create Account</h1>
-        <input type="text" placeholder="Name" name="name" />
-        <input type="text" name="currAddress" placeholder="Current Address" />
-        <input type="text" name="permAddress" placeholder="Permanent Address" />
-        <input type="number" name="phone" placeholder="Phone Number" />
-        <div class="foodPref">
-          <div>
-            <input type="radio" name="foodPref" id="veg" />
-            <label for="veg">veg</label>
-          </div>
-          <div>
-            <input type="radio" name="foodPref" id="nonVeg" />
-            <label for="nonVeg">Non-veg</label>
-          </div>
+    <form class="form-container sign-up-container" method="post">
+      {% csrf_token %}
+      <h3>Fill your info</h3>
+      <hr />
+      <div class="mb-3">
+        <input type="text" class="form-control" id="first_name" placeholder=" first name" name="first_name" />
+      </div>
+      <div class="mb-3">
+        <input type="text" class="form-control" id="last_name" placeholder="last name" name="last_name" />
+      </div>
+      <div class="mb-3">
+        <input type="text" class="form-control" id="current_address" placeholder="current address" name="current_address" />
+      </div>
+      <div class="mb-3">
+        <input type="text" class="form-control" id="permanent_address" placeholder="parmanent address" name="permanent_address" />
+      </div>
+      <div class="mb-3">
+        <input type="number" class="form-control" id="ph_number" placeholder="contact number" name="ph_number" />
+      </div>
+      <div class="radio-wrapper d-flex gap-4 my-2">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gender" id="male" />
+          <label class="form-check-label" for="male">Male</label>
         </div>
-        <div class="gender">
-          <div>
-            <input type="radio" name="gender" id="male" value="male" />
-            <label for="male">Male</label>
-          </div>
-          <div>
-            <input type="radio" name="gender" id="female" value="female" />
-            <label for="female">Female</label>
-          </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gender" id="female" />
+          <label class="form-check-label" for="female">Female</label>
         </div>
+      </div>
+      <div class="radio-wrapper d-flex gap-4 my-2">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="food_pref" id="veg" />
+          <label class="form-check-label" for="veg">Veg</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="food_pref" id="non_veg" />
+          <label class="form-check-label" for="non_veg">Non-veg</label>
+        </div>
+      </div>
+      <div class="radio-wrapper d-flex gap-4 my-2">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="user_type_1" id="single" value="single" />
+          <label class="form-check-label" for="single">Single</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="user_type_1" id="couple" value="couple" />
+          <label class="form-check-label" for="couple">Couple</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="user_type_1" id="family" value="family" />
+          <label class="form-check-label" for="family">Family</label>
+        </div>
+      </div>
+      <div class="radio-wrapper d-flex gap-4 my-2">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="user_type_2" id="student" value="student" />
+          <label class="form-check-label" for="student">Student</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="user_type_2" id="employee" value="employee" />
+          <label class="form-check-label" for="employee">Employee</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="user_type_2" id="others" value="others" />
+          <label class="form-check-label" for="others">Others</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <textarea class="form-control" aria-label="your interests" placeholder="Enter your interests seperated with commas, Eg: Football,Coding"></textarea>
+      </div>
 
-        <div class="status">
-          <div>
-            <input type="radio" name="maritialStatus" id="married" value="married" />
-            <label for="married">Married</label>
-          </div>
-          <div>
-            <input type="radio" name="maritialStatus" id="single" value="single" />
-            <label for="single">single</label>
-          </div>
-        </div>
+      <hr />
+      <h3>Credentials</h3>
+      <div class="mb-3">
+        <input type="text" class="form-control" id="user_name" placeholder=" username" name="user_name" />
+      </div>
+      <div class="mb-3">
+        <input type="password" class="form-control" id="password" placeholder=" password" name="password" />
+      </div>
 
-        <div class="occupation">
-          <div>
-            <input type="radio" name="occupation" id="student" value="student" />
-            <label for="student">student</label>
-          </div>
-          <div>
-            <input type="radio" name="occupation" id="employee" value="employee" />
-            <label for="employee">employee</label>
-          </div>
-          <div>
-            <input type="radio" name="occupation" id="notsaying" value="notsaying" />
-            <label for="notsaying">Rather not say</label>
-          </div>
-        </div>
-        <div class="intrests">
-          <textarea name="intrests" id="intrests"></textarea>
-        </div>
-
-        <input type="email" placeholder="Username (must be unique)" name="username" />
-        <input type="password" placeholder="Password" name="password" />
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+      <button class="btn btn-success">Register</button>
+    </form>
   </div>
 {% endblock %}
