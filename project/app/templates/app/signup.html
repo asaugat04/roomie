@@ -27,21 +27,21 @@
       </div>
       <div class="radio-wrapper d-flex gap-4 my-2">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="gender" id="male" />
+          <input class="form-check-input" type="radio" name="gender" id="male" value="male" />
           <label class="form-check-label" for="male">Male</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="gender" id="female" />
+          <input class="form-check-input" type="radio" name="gender" id="female" value="female" />
           <label class="form-check-label" for="female">Female</label>
         </div>
       </div>
       <div class="radio-wrapper d-flex gap-4 my-2">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="food_pref" id="veg" />
+          <input class="form-check-input" type="radio" name="food_pref" id="veg" value="veg" />
           <label class="form-check-label" for="veg">Veg</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="food_pref" id="non_veg" />
+          <input class="form-check-input" type="radio" name="food_pref" id="non_veg" value="non_veg" />
           <label class="form-check-label" for="non_veg">Non-veg</label>
         </div>
       </div>
@@ -74,7 +74,7 @@
         </div>
       </div>
       <div class="input-group">
-        <textarea class="form-control" aria-label="your interests" placeholder="Enter your interests seperated with commas, Eg: Football,Coding"></textarea>
+        <textarea class="form-control" aria-label="your interests" placeholder="Enter your interests seperated with commas, Eg: Football,Coding" name="interests"></textarea>
       </div>
 
       <hr />
@@ -86,7 +86,7 @@
         <input type="password" class="form-control" id="password" placeholder=" password" name="password" />
       </div>
 
-      <button class="btn btn-success">Register</button>
+      <button class="btn btn-success" type="submit">Register</button>
     </form>
   </div>
 {% endblock %}

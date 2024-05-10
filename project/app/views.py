@@ -13,7 +13,11 @@ def home(request):
 def signup(request):
 
     if request.method == "POST":
-        print(request.POST)
+            form_data = request.POST
+            
+
+
+
         return render(request,"app/signup.html")
 
     return render(request,"app/signup.html")
