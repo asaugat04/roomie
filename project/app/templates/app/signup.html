@@ -4,7 +4,8 @@
   <div class="container" id="container">
     <!-- Signup form -->
     <div class="form-container sign-up-container">
-      <form action="#">
+      <form action="" method="post">
+        {% csrf_token %}
         <h1>Create Account</h1>
         <input type="text" placeholder="Name" name="name" />
         <input type="text" name="currAddress" placeholder="Current Address" />
@@ -62,7 +63,7 @@
 
         <input type="email" placeholder="Email" name="email" />
         <input type="password" placeholder="Password" name="password" />
-        <button>Sign Up</button>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   </div>
