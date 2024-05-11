@@ -132,38 +132,32 @@
               <div class="card-body">
                 <div class="profile-info">
                   <h5>Profile Information</h5>
+                  <hr />
                   <p>
-                    <strong>Name:</strong> Jyoti
+                    <strong>Name:</strong> {{ profile.get_full_name }}
                   </p>
                   <p>
-                    <strong>Email Address:</strong> jyoti@gmail.com
+                    <strong>Current Address:</strong> {{ profile.temp_address }}
                   </p>
                   <p>
-                    <strong>Contact:</strong> +91 7493658737
+                    <strong>Permanent Address:</strong> {{ profile.perm_address }}
                   </p>
                   <p>
-                    <strong>Date of Birth:</strong> 02-03-1999
+                    <strong>Contact:</strong> {{ profile.phone_no }}
+                  </p>
+
+                  <p>
+                    <strong>Gender:</strong> {{ profile.gender }}
+                  </p>
+
+                  <p>
+                    <strong>Fooding Preference:</strong> {{ profile.food_preference }}
                   </p>
                   <p>
-                    <strong>Gender:</strong> Female
+                    <strong>Maritial Status:</strong> {{ profile.user_type }}
                   </p>
                   <p>
-                    <strong>City:</strong> Delhi, NCR
-                  </p>
-                  <p>
-                    <strong>Height:</strong> 5.4
-                  </p>
-                  <p>
-                    <strong>Weight:</strong> 50
-                  </p>
-                  <p>
-                    <strong>Goal:</strong> Hair & Skin
-                  </p>
-                  <p>
-                    <strong>Preference:</strong> Pure Vegitarian
-                  </p>
-                  <p>
-                    <strong>Role:</strong> User
+                    <strong>Employment Status:</strong> {{ profile.user_type_2 }}
                   </p>
                 </div>
               </div>

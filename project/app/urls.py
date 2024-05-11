@@ -13,4 +13,7 @@ urlpatterns = [
     path('user/profile/', views.profile, name="profile"),
     path('user/profile-pic/update/', views.update_profile_pic, name="update_profile_pic"),
 
+
+    path('room/offer/',views.offer_room, name="offer_room"),
+
 ]

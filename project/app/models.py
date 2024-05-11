@@ -43,3 +43,19 @@ class Profile(models.Model):
         return self.user.first_name + " " + self.user.last_name
     def __str__(self):
         return self.user.username
+
+
+
+class Room(models.Model):
+    location = models.CharField(max_length=100)
+    price = models.IntegerField()
+    roommate_max_capacity = models.IntegerField()
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to='room_image', blank=True, null=True)
+
+
+    def __str__(self):
+        return self.location
+    

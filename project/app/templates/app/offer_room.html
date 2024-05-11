@@ -1,0 +1,137 @@
+{% extends 'app/base.html' %}
+{% block title %}
+  Offer Room
+{% endblock %}
+
+{% block internal_styles %}
+  <style>
+    .form-wrapper {
+      max-width: 500px;
+      margin: auto;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="form-wrapper">
+    <h3 class="text-center">Offer a sharing room</h3>
+    <hr />
+    <form action="" method="post" enctype="multipart/form-data" class="form-container">
+      {% csrf_token %}
+      <div class="mb-3">
+        <input type="text" class="form-control" id="location" placeholder=" location" name="location" required autofocus />
+      </div>
+      <div class="mb-3">
+        <input type="number" class="form-control" id="price" placeholder=" price" name="price" required />
+      </div>
+      <div class="mb-3">
+        <input type="number" class="form-control" id="roommate-max-capacity" placeholder=" roommate-max-capacity" name="roommate-max-capacity" required />
+      </div>
+      <input type="hidden" id="previewImage" name="previewImage" value="" />
+
+      <button class="btn btn-success" type="submit">Add Sharing Room</button>
+    </form>
+
+    <div class="d-flex justify-content-center my-2">
+      <video id="video" autoplay playsinline>laskdjf</video>
+      <img id="preview-image" src="" alt="Preview Image" style="display:none;" />
+    </div>
+    <div class="d-flex gap-2 mx-2">
+      <button class="btn btn-warning" id="start">Start Camera</button>
+      <button class="btn btn-warning" id="capture">Capture Image</button>
+      <button class="btn btn-warning" id="switch-camera">Switch Camera</button>
+      <canvas class="btn btn-warning" id="canvas" style="display:none;"></canvas>
+    </div>
+
+    <script>
+      const video = document.getElementById('video')
+      const startButton = document.getElementById('start')
+      const captureButton = document.getElementById('capture')
+      const switchCameraButton = document.getElementById('switch-camera')
+      const canvas = document.getElementById('canvas')
+      const context = canvas.getContext('2d')
+      
+      let streaming = false
+      let videoStream = null
+      let videoDevices = []
+      
+      navigator.mediaDevices
+        .enumerateDevices()
+        .then((devices) => {
+          devices.forEach((device) => {
+            if (device.kind === 'videoinput') {
+              videoDevices.push(device)
+            }
+          })
+        })
+        .catch((error) => {
+          console.error('Error:', error)
+        })
+      
+      startButton.addEventListener('click', () => {
+        if (!streaming) {
+          navigator.mediaDevices
+            .getUserMedia({
+              video: {
+                width: { ideal: 320 },
+                height: { ideal: 240 },
+                aspectRatio: { ideal: 4 / 3 }
+              }
+            })
+            .then((stream) => {
+              video.srcObject = stream
+              video.play()
+              streaming = true
+              videoStream = stream
+            })
+            .catch((error) => {
+              console.error('Error:', error)
+            })
+        }
+      })
+      
+      captureButton.addEventListener('click', () => {
+        if (streaming) {
+          canvas.width = video.videoWidth
+          canvas.height = video.videoHeight
+          context.drawImage(video, 0, 0, canvas.width, canvas.height)
+          const data = canvas.toDataURL('image/png')
+      
+          video.style.display = 'none'
+          const previewImage = document.getElementById('preview-image')
+          previewImage.src = data
+          previewImage.style.display = 'block'
+          const previewInput = document.getElementById('previewImage')
+          previewInput.value = data
+        }
+      })
+      
+      switchCameraButton.addEventListener('click', () => {
+        if (streaming) {
+          videoStream.getTracks().forEach((track) => {
+            track.stop()
+          })
+          const currentCameraId = videoDevices.find((device) => device.deviceId === videoStream.getVideoTracks()[0].getSettings().deviceId).deviceId
+          const nextCameraId = videoDevices[(videoDevices.indexOf(videoDevices.find((device) => device.deviceId === currentCameraId)) + 1) % videoDevices.length].deviceId
+          navigator.mediaDevices
+            .getUserMedia({
+              video: {
+                deviceId: nextCameraId,
+                width: { ideal: 320 },
+                height: { ideal: 240 },
+                aspectRatio: { ideal: 4 / 3 }
+              }
+            })
+            .then((stream) => {
+              video.srcObject = stream
+              video.play()
+              videoStream = stream
+            })
+            .catch((error) => {
+              console.error('Error:', error)
+            })
+        }
+      })
+    </script>
+  </div>
+{% endblock %}

@@ -3,8 +3,11 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from . models import Profile
+from . models import Profile, Room
 from django.contrib.auth import authenticate, login, logout
+import base64
+import uuid
+from django.core.files.base import ContentFile
 
 @login_required
 def home(request):
@@ -80,6 +83,7 @@ def user_login(request):
 
 
 
+@login_required
 def user_logout(request):
     logout(request)
     messages.success(request, "Logout successful.")
@@ -88,6 +92,7 @@ def user_logout(request):
 
 
 
+@login_required
 def profile(request):
 
     user = request.user
@@ -98,7 +103,7 @@ def profile(request):
     return render(request,"app/profile.html", context)
 
 
-
+@login_required
 def update_profile_pic(request):
     if request.method == "POST":
         profile = Profile.objects.get(user=request.user)
@@ -106,3 +111,37 @@ def update_profile_pic(request):
         profile.save()
         messages.success(request, "Profile picture updated successfully.")
     return redirect("app:profile")
+
+
+@login_required
+def offer_room(request):
+    if request.method=="POST":
+
+        # Assuming the base64 data is in the 'image' field of the request
+        base64_data = request.POST['previewImage']
+
+        # Remove the prefix from the base64 data
+        base64_data = base64_data.split(',')[-1]
+
+        # Decode the base64 data
+        decoded_data = base64.b64decode(base64_data)
+
+        # Create a file object
+        file_object = ContentFile(decoded_data, name=f'{uuid.uuid4()}.png')
+
+        location = request.POST['location']
+        price = request.POST['price']
+        roommate_max_capacity = request.POST['roommate-max-capacity']
+
+        Room.objects.create(
+            location=location,
+            price=price,
+            roommate_max_capacity=roommate_max_capacity,
+            image=file_object
+        )
+
+        messages.success(request, "Sharing room added successfully.")
+        return redirect("app:home")
+        
+
+    return render(request,"app/offer_room.html")
