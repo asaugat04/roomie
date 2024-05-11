@@ -33,23 +33,23 @@
 
   {% block content %}
     <!-- Hero section with background image and clip path implemented -->
-    <section class="hero bg-primary text-light d-flex justify-content-center align-items-center rounded-3" style="
+    <section class="hero text-light d-flex justify-content-center align-items-center rounded-3 mx-5" style="
         height: 90vh;
         background-image: url('{% static 'app/images/cover.jpg' %}');
         background-position: center;
         background-size: cover;
       ">
       <div class="hero-text-container text-center">
-        <h1 class="display-3">Welcome To Roomie</h1>
-        <p class="lead">A platform to find your perfect roommate!</p>
+        <h1 class="display-3 fw-bolder">Welcome To Roomie</h1>
+        <p class="lead fw-bold ">A platform to find your perfect roommate!</p>
         <div class="d-flex justify-content-center">
-          <a class="btn btn-light btn-lg me-3 p-2" href="{% url 'app:offer_room' %}" >Offer Sharing Room</a>
+          <a class="btn btn-light btn-lg me-3 p-3" href="{% url 'app:offer_room' %}" >Offer Sharing Room</a>
           <a class="btn btn-light btn-lg p-2" href="{% url 'app:roommates' %}">Find Roommates</a>
         </div>
       </div>
     </section>
     <!-- Introduction section -->
-    <section class="bg-light rounded my-5">
+    <section class="rounded my-5">
       <div class="container my-5">
         <div class="row">
           <div class="col-md-6">
@@ -67,7 +67,7 @@
         Another section with a different background color
            -->
 
-    <section class="bg-light my-5">
+    <section class="my-5">
       <div class="container my-5">
         <div class="row">
           <div class="col-md-6">

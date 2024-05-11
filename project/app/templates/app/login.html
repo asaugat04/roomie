@@ -9,12 +9,13 @@
 {% endblock %}
 
 {% block nav %}
+
 {% endblock %}
 
 {% block content %}
   <div class="container" id="container">
     <!-- Signup form -->
-    <form class="form-container sign-up-container" method="post">
+    <form class="form-container sign-up-container d-flex flex-column border rounded p-5 shadow-lg" method="post">
       {% if messages %}
         {% for message in messages %}
           <p>{{ message }}</p>
@@ -25,14 +26,16 @@
       <hr />
 
       <div class="mb-3">
-        <input type="text" class="form-control" id="user_name" placeholder=" username" name="user_name" required autofocus />
+        <input type="text" class="form-control" id="user_name" placeholder="Username" name="user_name" required autofocus />
       </div>
       <div class="mb-3">
-        <input type="password" class="form-control" id="password" placeholder=" password" name="password" required />
+        <input type="password" class="form-control" id="password" placeholder="Password" name="password" required />
       </div>
 
       <button class="btn btn-success" type="submit">Login</button>
-      <a class="btn btn-success my-2" href="{% url 'app:signup' %}">Register</a>
+      <p class="mt-3">
+        Don't have an account? <a href="{% url 'app:signup' %}">Register Here</a>
+      </p>
     </form>
   </div>
 {% endblock %}
