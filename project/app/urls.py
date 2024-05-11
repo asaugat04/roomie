@@ -17,7 +17,10 @@ urlpatterns = [
     path('room/offer/',views.offer_room, name="offer_room"),
     path('rooms/',views.rooms, name="rooms"),
     path('rooms/delete/<str:room_id>/',views.delete_room, name="delete_room"),
+
+
     path('rooms/livein/<str:room_id>/',views.live_in, name="live_in"),
+    path('rooms/request/<str:room_id>/',views.request_room, name="request_room"),
 
     path('rooms/search/',views.search, name="search"),
 

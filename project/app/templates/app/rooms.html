@@ -32,7 +32,11 @@
               <div class="card-body">
                 <h5 class="card-title">{{ room.location }}</h5>
                 <p class="card-text">Rs. &nbsp; {{ room.price }}</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                {% if room in requested_rooms %}
+                  <p>Requested</p>
+                {% else %}
+                  <a href="{% url 'app:request_room' room.id %}" class="btn btn-primary">Request to live</a>
+                {% endif %}
               </div>
             </div>
           {% endfor %}
@@ -51,8 +55,9 @@
                     <h5 class="card-title">{{ room.location }}</h5>
                     <p class="card-text">Rs. &nbsp; {{ room.price }}</p>
                     <p class="card-text">Max capacity. &nbsp; {{ room.roommate_max_capacity }}</p>
-                    <a href="{% url 'app:live_in' room.id %}" class="btn btn-primary">I stay here</a>
-                    <a href="{% url 'app:delete_room' room.id %}" class="btn btn-primary">Remove</a>
+                    <a href="{% url 'app:live_in' room.id %}" class="btn btn-primary my-1">I stay here</a>
+                    <a href="{% url 'app:live_in' room.id %}" class="btn btn-primary my-1">View requests</a>
+                    <a href="{% url 'app:delete_room' room.id %}" class="btn btn-primary my-1">Remove</a>
                   </div>
                 </div>
               {% endfor %}

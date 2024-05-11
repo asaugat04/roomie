@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from . models import Profile, Room
+from . models import Profile, Room, RoomRequest
 from django.contrib.auth import authenticate, login, logout
 import base64
 import uuid
@@ -154,12 +154,20 @@ def rooms(request):
     if request.session.get("location"):
         rooms = Room.objects.filter(location__icontains=request.session.get("location"))
         request.session["location"] = None
+
     else:
         rooms = Room.objects.all()
+
+    requests = RoomRequest.objects.filter(profile=request.user.profile)
+    requested_rooms = []
+    for r in requests:
+        if r.room in rooms:
+            requested_rooms.append(r.room)
 
     context = {
         "rooms": rooms,
         "rooms_listed_by_this_user":rooms.filter(listed_by=request.user),
+        "requested_rooms": requested_rooms
     }
     return render(request,"app/rooms.html", context)
 
@@ -274,3 +282,25 @@ def live_in(request, room_id):
             return redirect("app:rooms")
     else:
         return redirect("app:rooms")
+
+
+
+
+@login_required
+def request_room(request, room_id):
+    room = Room.objects.get(id=room_id)
+    user = request.user
+
+
+    RoomRequest.objects.create(
+        profile=user.profile,
+        room=room
+    )
+
+    messages.success(request, "Request sent successfully.")
+
+    return redirect("app:rooms")
+
+
+
+
