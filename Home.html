@@ -23,7 +23,7 @@
       .hero {
         clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
       }
-      .hero-text-container{
+      .hero-text-container {
         background-color: rgba(0, 0, 0, 0.32);
 
         padding: 20px;
@@ -34,12 +34,20 @@
         align-items: center;
         justify-content: center;
       }
+      .navbar {
+        background-color: transparent !important;
+        z-index: 1000;
+        margin-bottom: 10px;
+      }
     </style>
   </head>
   <body class="mx-4 mt-1">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm bg-transparent" style="font-size: larger;">
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary"
+      style="font-size: larger"
+    >
       <div class="container-fluid">
-        <a class="navbar-brand"  href="#"><h1>Roomie</h1></a>
+        <a class="navbar-brand" href="#"><h1>Roomie</h1></a>
         <button
           class="navbar-toggler"
           type="button"
@@ -57,14 +65,16 @@
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link" href="#">Find Roommate</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link" href="#">Search ******</a>
             </li>
           </ul>
           <span class="theme-changer me-3">
-            <i class="fa-solid fa-sun" style="font-size: 25px"></i>
+            <a class="nav-link" href="./profile.html"
+              ><i class="fa-solid fa-user-circle" style="font-size: 30px"></i
+            ></a>
           </span>
         </div>
       </div>
@@ -81,22 +91,28 @@
     >
       <div class="hero-text-container text-center">
         <h1 class="display-3">Welcome To Roomie</h1>
-        <p class="lead">A platform to find your perfect roomie!</p>
+        <p class="lead">A platform to find your perfect roommate!</p>
         <div class="d-flex justify-content-center">
-          <button class="btn btn-light btn-lg me-3"style="width: 200px;">I have a room and searching for roommate</button>
-          <button class="btn btn-light btn-lg"style="width: 200px;">I need a sharing room</button>
+          <button class="btn btn-light btn-lg me-3 p-2">
+            Offer Sharing Room
+          </button>
+          <button class="btn btn-light btn-lg p-2">Find Sharing Room</button>
         </div>
       </div>
     </section>
     <!-- Introduction section -->
-    <section class="my-5">
+    <section class="bg-light rounded my-5">
       <div class="container my-5">
         <div class="row">
           <div class="col-md-6">
-            <h2 class="display-4">About Roomie</h2>
+            <h2 class="display-4 mb-5">About Roomie</h2>
             <p class="lead">
-              Finding a compatible roommate without relying on third-party services can be challenging. Traditional methods often lack security and control over the matching process. This case study explores the development of a peer-to-peer roommate matching platform that empowers users to connect directly, fostering a more transparent and secure roommate search experience.
-
+              Finding a compatible roommate without relying on third-party
+              services can be challenging. Traditional methods often lack
+              security and control over the matching process. This case study
+              explores the development of a peer-to-peer roommate matching
+              platform that empowers users to connect directly, fostering a more
+              transparent and secure roommate search experience.
             </p>
           </div>
           <div class="col-md-6">
@@ -108,5 +124,34 @@
           </div>
         </div>
       </div>
+      <hr class="mt-5 mb-5" />
+    </section>
+    <!-- 
+        Another section with a different background color
+       -->
+
+    <section class="bg-light my-5">
+      <div class="container my-5">
+        <div class="row">
+          <div class="col-md-6">
+            <img
+              src="https://source.unsplash.com/800x600/?technology"
+              alt=""
+              class="img-fluid rounded-3"
+            />
+          </div>
+          <div class="col-md-6">
+            <h2 class="display-4 mb-5">Our Mission</h2>
+            <p class="lead">
+              Our mission is to provide a platform where users can find their
+              perfect roomie without any hassle. We aim to provide a secure and
+              transparent platform for users to connect directly and find their
+              perfect roommate.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- <hr class="mt-5 mb-5" /> -->
+    </section>
   </body>
 </html>
