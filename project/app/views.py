@@ -89,4 +89,20 @@ def user_logout(request):
 
 
 def profile(request):
-    return render(request,"app/profile.html")
+
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    context = {
+        "profile": profile
+    }
+    return render(request,"app/profile.html", context)
+
+
+
+def update_profile_pic(request):
+    if request.method == "POST":
+        profile = Profile.objects.get(user=request.user)
+        profile.image = request.FILES['user_image']
+        profile.save()
+        messages.success(request, "Profile picture updated successfully.")
+    return redirect("app:profile")
