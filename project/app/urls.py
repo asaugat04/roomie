@@ -17,6 +17,8 @@ urlpatterns = [
     path('room/offer/',views.offer_room, name="offer_room"),
     path('rooms/',views.rooms, name="rooms"),
 
+    path('rooms/search/',views.search, name="search"),
+
     path('roommates/',views.roommates, name="roommates"),
 
     path('show_profile/<str:username>/',views.show_profile, name="show_profile"),

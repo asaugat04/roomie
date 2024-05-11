@@ -150,7 +150,12 @@ def offer_room(request):
 
 @login_required
 def rooms(request):
-    rooms = Room.objects.all()
+
+    if request.session.get("location"):
+        rooms = Room.objects.filter(location__icontains=request.session.get("location"))
+    else:
+        rooms = Room.objects.all()
+
     context = {
         "rooms": rooms
     }
@@ -211,3 +216,16 @@ def show_profile(request, username):
         "profile": profile
     }
     return render(request,"app/show_profile.html", context)
+
+
+
+
+@login_required
+def search(request):
+    search_location = request.GET.get("location")
+    request.session["location"] = search_location
+
+
+    print(search_location, request.session.get("location"))
+
+    return redirect("app:rooms")
