@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}
+  Roomie | Sharing Rooms
+{% endblock %}
+
+{% block internal_styles %}
+  <style>
+    .form-wrapper {
+      max-width: 800px;
+      margin: auto;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="form-wrapper">
+    <h3 class="text-center">Best matching roommates for you</h3>
+    <hr />
+    <div class="rooms-cards-wrapper d-flex justify-content-center flex-wrap gap-3">
+      {% for mate in roommates %}
+        <a href="{% url 'app:show_profile' mate.user.username %}">
+          <div class="card" style="width: 18rem;">
+            {% if mate.image %}
+              <img src="{{ mate.image.url }}" class="card-img-top" alt="room-img" height="300" style="object-fit: cover;" />
+            {% else %}
+              <img src="{% static 'app/images/default.jpeg' %}" class="card-img-top" alt="room-img" />
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ mate.get_full_name }}</h5>
+              <p class="card-text">{{ mate.temp_address }} (current)</p>
+              {% comment %} <a href="#" class="btn btn-primary">Go somewhere</a> {% endcomment %}
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

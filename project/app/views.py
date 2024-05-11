@@ -145,3 +145,35 @@ def offer_room(request):
         
 
     return render(request,"app/offer_room.html")
+
+
+
+@login_required
+def rooms(request):
+    rooms = Room.objects.all()
+    context = {
+        "rooms": rooms
+    }
+    return render(request,"app/rooms.html", context)
+
+
+
+
+@login_required
+def roommates(request):
+    roommates = Profile.objects.exclude(user=request.user)
+    context = {
+        "roommates": roommates
+    }
+    return render(request,"app/roommates.html", context)
+
+
+
+
+@login_required
+def show_profile(request, username):
+    profile = Profile.objects.get(user__username=username)
+    context = {
+        "profile": profile
+    }
+    return render(request,"app/show_profile.html", context)
