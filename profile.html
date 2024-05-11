@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <title>Profile</title>
+    <link rel="stylesheet" href="assets/css/profile.css" />
+    <style>
+      .list-group-item.active {
+        background: #06c167 !important;
+      }
+      .bg-warning {
+        background: #06c167 !important;
+      }
+      .modal-content {
+        background-color: #fefefe;
+        margin: 4% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 70%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease-in-out;
+        /*transform: translateY(-100%);*/
+      }
+      .close {
+        float: right;
+        text-align: right;
+        font-size: 30px;
+      }
+      .modal-content h2 {
+        text-align: center;
+        margin-top: -35px;
+      }
+      .button_div {
+        justify-content: center;
+        text-align: center;
+      }
+      .button_div button {
+        margin-right: 10px;
+        background: #06c167;
+        border: 1px solid #06c167;
+        padding: 5px 15px;
+        color: #ffffff;
+        border-radius: 2px;
+      }
+      #addAddressForm input {
+        padding: 5px;
+      }
+      .nice-select {
+        padding: 0px !important;
+        height: 38px !important;
+        line-height: 38px !important;
+      }
+
+      .add_address_button {
+        background: #06c167;
+        border: 1px solid #06c167;
+        padding: 5px 15px;
+        color: #ffffff;
+        border-radius: 2px;
+      }
+
+      @media (max-width: 768px) {
+        .main_flex_div {
+          display: flex;
+          flex-direction: column;
+        }
+        .inner_flex_div {
+          min-width: 100% !important;
+        }
+        .modal-content {
+          padding: 10px 0px !important;
+          min-width: 95% !important;
+          height: 700px;
+          overflow: scroll;
+        }
+        .close {
+          margin-right: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="my-5">
+      <div class="container">
+        <div class="main-body">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card">
+                <div class="card-body">
+                  <div
+                    class="d-flex flex-column align-items-center text-center"
+                  >
+                    <img
+                      src="https://source.unsplash.com/200x200/?profile"
+                      alt="Admin"
+                      class="rounded-circle p-1 bg-warning"
+                      width="110"
+                    />
+                    <div class="mt-3">
+                      <h4>Jyoti</h4>
+                      <p class="text-secondary mb-1">+977 7493658737</p>
+                      <p class="text-muted font-size-sm">Delhi, NCR</p>
+                    </div>
+                  </div>
+                  <div class="list-group list-group-flush text-center mt-4">
+                    <!-- <a
+                      href="#"
+                      class="list-group-item list-group-item-action border-0"
+                    >
+                      Profile Informaton
+                    </a> -->
+                    <!-- <a href="#" class="list-group-item list-group-item-action border-0" onclick="showOrderDetails()">Orders</a> -->
+
+                    <!-- <a href="#" class="list-group-item list-group-item-action border-0 active"
+                                        onclick="showAddressBook()">
+                                        Address Book
+                                    </a> -->
+                    <a
+                      href="#"
+                      class="list-group-item list-group-item-action border-0"
+                      >Logout</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <div id="profileDetails" class="card" style="display: block">
+                <div class="card-body">
+                  <div class="profile-info">
+                    <h5>Profile Information</h5>
+                    <p><strong>Name:</strong> Jyoti</p>
+                    <p><strong>Email Address:</strong> jyoti@gmail.com</p>
+                    <p><strong>Contact:</strong> +91 7493658737</p>
+                    <p><strong>Date of Birth:</strong> 02-03-1999</p>
+                    <p><strong>Gender:</strong> Female</p>
+                    <p><strong>City:</strong> Delhi, NCR</p>
+                    <p><strong>Height:</strong> 5.4</p>
+                    <p><strong>Weight:</strong> 50</p>
+                    <p><strong>Goal:</strong> Hair & Skin</p>
+                    <p><strong>Preference:</strong> Pure Vegitarian</p>
+                    <p><strong>Role:</strong> User</p>
+                  </div>
+                </div>
+              </div>
+
+              <div id="addressBook" class="card" style="display: none">
+                <div class="card-body">
+                  <h5>Address Book</h5>
+                  <button class="add_address_button">Add Address</button>
+
+                  <div id="addressList"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
