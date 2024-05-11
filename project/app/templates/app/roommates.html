@@ -10,6 +10,14 @@
       max-width: 800px;
       margin: auto;
     }
+    .card-link {
+      text-decoration: none;
+    }
+    
+    .card-link:hover {
+      box-shadow: 0 2px 10px 5px #f0f0f0;
+      transform: scale(1.01);
+    }
   </style>
 {% endblock %}
 
@@ -19,16 +27,17 @@
     <hr />
     <div class="rooms-cards-wrapper d-flex justify-content-center flex-wrap gap-3">
       {% for mate in roommates %}
-        <a href="{% url 'app:show_profile' mate.user.username %}">
+        <a class="card-link" href="{% url 'app:show_profile' mate.mate.user.username %}">
           <div class="card" style="width: 18rem;">
-            {% if mate.image %}
-              <img src="{{ mate.image.url }}" class="card-img-top" alt="room-img" height="300" style="object-fit: cover;" />
+            {% if mate.mate.image %}
+              <img src="{{ mate.mate.image.url }}" class="card-img-top" alt="room-img" height="300" style="object-fit: cover;" />
             {% else %}
               <img src="{% static 'app/images/default.jpeg' %}" class="card-img-top" alt="room-img" />
             {% endif %}
             <div class="card-body">
-              <h5 class="card-title">{{ mate.get_full_name }}</h5>
-              <p class="card-text">{{ mate.temp_address }} (current)</p>
+              <h5 class="card-title">{{ mate.mate.get_full_name }}</h5>
+              <p class="card-text">{{ mate.mate.temp_address }} (current)</p>
+              <p class="card-text">Match Score :{{ mate.match_score }}</p>
               {% comment %} <a href="#" class="btn btn-primary">Go somewhere</a> {% endcomment %}
             </div>
           </div>
