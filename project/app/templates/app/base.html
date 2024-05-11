@@ -11,10 +11,50 @@
       {% endblock %}
     </title>
 
-    {% block css_links %}
+    {% block external_links %}
+
     {% endblock %}
+
+    {% block css_links %}
+
+    {% endblock %}
+
+    {% block internal_styles %}
+
+    {% endblock %}
+
+    <style>
+      .navbar {
+        background-color: transparent !important;
+        z-index: 1000;
+        margin-bottom: 10px;
+      }
+    </style>
   </head>
   <body>
+    {% block nav %}
+      <nav class="navbar navbar-expand-lg bg-body-tertiary" style="font-size: larger">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><h1>Roomie</h1></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Find Roommate</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Search ******</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:logout' %}">Logout</a>
+              </li>
+            </ul>
+            <span class="theme-changer me-3"><a class="nav-link" href="./profile.html"><i class="fa-solid fa-user-circle" style="font-size: 30px"></i></a></span>
+          </div>
+        </div>
+      </nav>
+    {% endblock %}
+
     {% block content %}
 
     {% endblock %}
