@@ -1,5 +1,25 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+
+
+
+class Room(models.Model):
+    location = models.CharField(max_length=100)
+    price = models.IntegerField()
+    roommate_max_capacity = models.IntegerField()
+    listed_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to='room_image', blank=True, null=True)
+
+
+    def __str__(self):
+        return self.location
+    
+
+
+
 class Profile(models.Model):
     food_preference_choices = [
         ('Veg', 'Veg'),
@@ -37,6 +57,9 @@ class Profile(models.Model):
     interests = models.TextField()
 
 
+    lives_in = models.ForeignKey(Room, on_delete=models.DO_NOTHING, null=True, blank=True)
+
+
 
 
     def get_full_name(self):
@@ -45,17 +68,3 @@ class Profile(models.Model):
         return self.user.username
 
 
-
-class Room(models.Model):
-    location = models.CharField(max_length=100)
-    price = models.IntegerField()
-    roommate_max_capacity = models.IntegerField()
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    image = models.ImageField(upload_to='room_image', blank=True, null=True)
-
-
-    def __str__(self):
-        return self.location
-    

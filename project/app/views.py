@@ -137,10 +137,10 @@ def offer_room(request):
             location=location,
             price=price,
             roommate_max_capacity=roommate_max_capacity,
-            image=file_object
+            image=file_object,
+            listed_by=request.user
         )
 
-        messages.success(request, "Sharing room added successfully.")
         return redirect("app:home")
         
 
@@ -153,11 +153,13 @@ def rooms(request):
 
     if request.session.get("location"):
         rooms = Room.objects.filter(location__icontains=request.session.get("location"))
+        request.session["location"] = None
     else:
         rooms = Room.objects.all()
 
     context = {
-        "rooms": rooms
+        "rooms": rooms,
+        "rooms_listed_by_this_user":rooms.filter(listed_by=request.user),
     }
     return render(request,"app/rooms.html", context)
 
@@ -229,3 +231,46 @@ def search(request):
     print(search_location, request.session.get("location"))
 
     return redirect("app:rooms")
+
+
+
+
+@login_required
+def delete_room(request, room_id):
+    room = Room.objects.get(id=room_id)
+    users_that_lives_in_this_room = Profile.objects.filter(lives_in=room)
+    for user_profile in users_that_lives_in_this_room:
+        user_profile.lives_in = None
+        user_profile.save()
+
+    room.delete()
+
+
+    return redirect("app:rooms")
+
+
+
+
+@login_required
+def live_in(request, room_id):
+    room = Room.objects.get(id=room_id)
+
+    if room.roommate_max_capacity != 0:
+        user_profile = Profile.objects.get(user=request.user)
+        
+
+
+        if user_profile.lives_in == room:
+            return redirect("app:rooms")
+
+        else:
+
+            user_profile.lives_in = room
+            user_profile.save()
+
+            room.roommate_max_capacity -= 1
+            room.save()
+
+            return redirect("app:rooms")
+    else:
+        return redirect("app:rooms")

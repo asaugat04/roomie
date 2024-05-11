@@ -7,27 +7,59 @@
 {% block internal_styles %}
   <style>
     .form-wrapper {
-      max-width: 500px;
+      width: 90vw;
       margin: auto;
+    }
+    
+    @media and screen(max-width:600px) {
+      .form-wrapper {
+        width: 98vw;
+      }
     }
   </style>
 {% endblock %}
 
 {% block content %}
   <div class="form-wrapper">
-    <h3 class="text-center">Sharing rooms available</h3>
     <hr />
-    <div class="rooms-cards-wrapper d-flex flex-column align-items-center gap-3">
-      {% for room in rooms %}
-        <div class="card" style="width: 18rem;">
-          <img src="{{ room.image.url }}" class="card-img-top" alt="room-img" />
-          <div class="card-body">
-            <h5 class="card-title">{{ room.location }}</h5>
-            <p class="card-text">Rs. &nbsp; {{ room.price }}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="container d-flex gap-2">
+      <div class="container">
+        <h3 class="text-center">Rooms</h3>
+        <div class="rooms-cards-wrapper d-flex flex-wrap gap-3">
+          {% for room in rooms %}
+            <div class="card" style="width: 18rem;">
+              <img src="{{ room.image.url }}" class="card-img-top" alt="room-img" />
+              <div class="card-body">
+                <h5 class="card-title">{{ room.location }}</h5>
+                <p class="card-text">Rs. &nbsp; {{ room.price }}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if rooms_listed_by_this_user %}
+        <div class="container">
+          <h3 class="text-center">Rooms listed by you</h3>
+          <div class="room-cards">
+            <div class="rooms-cards-wrapper d-flex flex-column align-items-center gap-3">
+              {% for room in rooms_listed_by_this_user %}
+                <div class="card" style="width: 18rem;">
+                  <img src="{{ room.image.url }}" class="card-img-top" alt="room-img" />
+                  <div class="card-body">
+                    <h5 class="card-title">{{ room.location }}</h5>
+                    <p class="card-text">Rs. &nbsp; {{ room.price }}</p>
+                    <p class="card-text">Max capacity. &nbsp; {{ room.roommate_max_capacity }}</p>
+                    <a href="{% url 'app:live_in' room.id %}" class="btn btn-primary">I stay here</a>
+                    <a href="{% url 'app:delete_room' room.id %}" class="btn btn-primary">Remove</a>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
           </div>
         </div>
-      {% endfor %}
+      {% endif %}
     </div>
   </div>
 {% endblock %}
