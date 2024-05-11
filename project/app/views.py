@@ -162,8 +162,42 @@ def rooms(request):
 @login_required
 def roommates(request):
     roommates = Profile.objects.exclude(user=request.user)
+
+    filtered_roommates = []
+    for roommate in roommates:
+        
+        if roommate.gender == request.user.profile.gender:
+            new_roommate = {
+                "mate": roommate,
+                "match_score": 0
+            }
+            filtered_roommates.append(new_roommate)
+
+            if roommate.food_preference == request.user.profile.food_preference:
+                filtered_roommates[-1]["match_score"] += 3
+            if roommate.temp_address == request.user.profile.temp_address:
+                filtered_roommates[-1]["match_score"] += 5
+            if roommate.perm_address == request.user.profile.perm_address:
+                filtered_roommates[-1]["match_score"] += 2
+            if roommate.user_type == request.user.profile.user_type:
+                filtered_roommates[-1]["match_score"] += 1
+            if roommate.user_type_2 == request.user.profile.user_type_2:
+                filtered_roommates[-1]["match_score"] += 2
+
+
+    
+    sorted_roommates = sorted(filtered_roommates, key=lambda x: x["match_score"], reverse=True)
+
+
+
+
+
+        
+
+
+
     context = {
-        "roommates": roommates
+        "roommates": sorted_roommates
     }
     return render(request,"app/roommates.html", context)
 
