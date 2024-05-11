@@ -1,0 +1,143 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}
+  Roomie | Room
+{% endblock %}
+
+{% block internal_styles %}
+  <style>
+    .list-group-item.active {
+      background: #06c167 !important;
+    }
+    .bg-warning {
+      background: #06c167 !important;
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 4% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 70%;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease-in-out;
+      /*transform: translateY(-100%);*/
+    }
+    .close {
+      float: right;
+      text-align: right;
+      font-size: 30px;
+    }
+    .modal-content h2 {
+      text-align: center;
+      margin-top: -35px;
+    }
+    .button_div {
+      justify-content: center;
+      text-align: center;
+    }
+    .button_div button {
+      margin-right: 10px;
+      background: #06c167;
+      border: 1px solid #06c167;
+      padding: 5px 15px;
+      color: #ffffff;
+      border-radius: 2px;
+    }
+    #addAddressForm input {
+      padding: 5px;
+    }
+    .nice-select {
+      padding: 0px !important;
+      height: 38px !important;
+      line-height: 38px !important;
+    }
+    
+    .add_address_button {
+      background: #06c167;
+      border: 1px solid #06c167;
+      padding: 5px 15px;
+      color: #ffffff;
+      border-radius: 2px;
+    }
+    
+    .user-img-wrapper {
+      height: 110px;
+      width: 110px;
+    }
+    .user-img {
+      height: inherit;
+      width: inherit;
+      object-fit: cover;
+    }
+    
+    @media (max-width: 768px) {
+      .main_flex_div {
+        display: flex;
+        flex-direction: column;
+      }
+      .inner_flex_div {
+        min-width: 100% !important;
+      }
+      .modal-content {
+        padding: 10px 0px !important;
+        min-width: 95% !important;
+        height: 700px;
+        overflow: scroll;
+      }
+      .close {
+        margin-right: 10px;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <!-- Bootstrap CSS -->
+
+  <section class="my-5">
+    <div class="container">
+      <div class="main-body">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card" style="width: 18rem;">
+              <img src="{{ room.image.url }}" class="card-img-top" alt="room-img" />
+              <div class="card-body">
+                <h5 class="card-title">{{ room.location }}</h5>
+                <p class="card-text">Rs. &nbsp; {{ room.price }}</p>
+                <p class="card-text">Max capacity. &nbsp; {{ room.roommate_max_capacity }}</p>
+                <a href="{% url 'app:live_in' room.id %}" class="btn btn-primary my-1">I stay here</a>
+                <a href="{% url 'app:delete_room' room.id %}" class="btn btn-primary my-1">Remove</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div id="profileDetails" class="card" style="display: block">
+              {% for r in requests %}
+                <a class="card-link" href="{% url 'app:show_profile' r.profile.user.username %}">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex flex-column align-items-center text-center">
+                        <div class="mt-3">
+                          <h4>{{ r.profile.get_full_name }}</h4>
+                          <p class="text-secondary mb-1">{{ r.profile.phone_no }}</p>
+                          <p class="text-muted font-size-sm">{{ r.profile.temp_address }} (Current)</p>
+                          <p class="text-muted font-size-sm">{{ r.profile.perm_address }} (Permanent)</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock %}

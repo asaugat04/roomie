@@ -169,6 +169,8 @@ def rooms(request):
         "rooms_listed_by_this_user":rooms.filter(listed_by=request.user),
         "requested_rooms": requested_rooms
     }
+
+    
     return render(request,"app/rooms.html", context)
 
 
@@ -304,3 +306,13 @@ def request_room(request, room_id):
 
 
 
+
+@login_required
+def room_detail(request, room_id):
+
+    room = Room.objects.get(id=room_id)
+    context = {
+        "room": room,
+        "requests": RoomRequest.objects.filter(room=room).filter(profile=request.user.profile)
+    }
+    return render(request,"app/room_detail.html", context)
